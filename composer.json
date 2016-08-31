@@ -1,0 +1,15 @@
+{
+    "name": "nivo/debug",
+    "authors": [
+        {
+            "name": "Nils Vogt",
+            "email": "hello.nils.vogt@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Nivo\\Debug\\": "src/Nivo/Debug/"
+        }
+    },
+    "require": {}
+}

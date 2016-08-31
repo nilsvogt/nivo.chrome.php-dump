@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel='stylesheet' href='css/main.css'>
+    <script src='vendor/angular.min.js'></script>
+    <script src='js/devtools.js'></script>
+  </head>
+  <body ng-app="app" ng-controller="ctrl">
+
+    <div ng-repeat="dump in dumps">
+      <h1>{{url}}</h1>
+
+      <!--
+      <h2>
+        <span ng-repeat="node in dump.summary">{{node}}</span>
+      </h2>
+      {{dump.summary}}
+      -->
+
+      <div class="log" ng-controller="dump">
+        <div>
+          <button type="button" ng-init="show_comments = false" ng-click="show_comments = !show_comments">toggle comments</button>
+        </div>
+        <ul class="class-inheritance panel-left" >
+          <li ng-repeat="class in dump.classes">
+            {{class.classname}}
+
+            <span ng-If="class.interfaces"> implements </span>
+            <span ng-If="class.interfaces" ng-repeat="(interface_name, interface) in class.interfaces">{{interface_name}} </span>
+
+            <!-- list all properties -->
+            <ul style="margin-bottom: 5px;">
+              <li ng-repeat="property in class.properties" class="{{property.visibility | join: ' '}}">
+                <pre ng-If="show_comments && property.comment">{{property.comment | trimComment}}</pre>
+                <em>{{property.visibility | join: ' '}} {{property.name}}</em>:
+
+                '<i>{{property.value}}</i>'
+              </li>
+            </ul>
+
+            <!-- list all methods -->
+            <ul style="padding: 0 0 0 10px;">
+              <li ng-repeat="method in class.methods" class="{{method.visibility | join: ' '}}" ng-mouseover="showDocBlock(method)">
+                <pre ng-If="show_comments && method.comment">{{method.comment | trimComment}}</pre>
+                <em>{{method.visibility | join: ' '}} {{method.name}}</em> (
+                <span ng-repeat="param in method.params">
+                  <span ng-If="param.required === 'optional'">?:</span>
+                  <i>{{param.type}}</i>
+                  {{param.name}}
+                </span>)
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="detail panel-right">
+          <pre ng-If="doc_block">{{doc_block | trimComment}}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div ng-If="!url">
+      <h1>PHP debug</h1>
+      <p>
+        usage: <strong style="background: #ccc; color: #000; display: inline-block; border-radius: 2px; padding: 3px 5px;">\Nivo\Debug\Chrome::dump($instance);</strong>
+      </p>
+
+      <ul>
+        <li>✅ represent instance</li>
+        <li>✅ toggle DocBlocks</li>
+        <li>represent arrays and primitives</li>
+        <li>multiple dumps</li>
+      </ul>
+    </div>
+
+  </body>
+</html>

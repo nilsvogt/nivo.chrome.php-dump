@@ -1,0 +1,20 @@
+body { background: #272822; color: #fff; }
+
+h1 { font-size: 15px; }
+
+.panel-left { display: block; width: 70%; float: left; }
+.panel-right { display: block; width: 30%; float: left; }
+
+ul { list-style-type: none; padding: 0; margin: 0; }
+ul:not(:first-child).class-inheritance { padding: 20px 0 0 0; }
+ul.class-inheritance ul li { padding: 0 0 0 10px; }
+li { color: #fff; display: block; padding: 2px; }
+
+ul.class-inheritance li:hover { background: rgba(255, 255, 255, 0.05); }
+
+li.parent { font-weight: bold; padding: 0; }
+li.public em { color: #a6e22c; }
+li.protected em { color: orange; }
+li.private em { color: red; }
+li span { color: #fff; }
+li span i { color: #5cd9ef; }
